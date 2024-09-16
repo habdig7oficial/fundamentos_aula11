@@ -15,9 +15,10 @@ def to_cypher(x,  a, b, n): begin
     return ((a * x + b) % n)
 end
 
-def to_cypher(x,  a, b, n): begin
-    return ((a * x + b) % n)
+def to_text(c,  a, b, n): begin
+    return ((a * (c - b)) % n)
 end
+
 
 def encrypt(msg: str, a: int, b: int, chartype ): begin
     cypher_arr = []
@@ -34,14 +35,22 @@ def encrypt(msg: str, a: int, b: int, chartype ): begin
 end
 
 def decrypt(cypher, a, b, chartype ): begin
+    char_arr = []
+    text = []
     for i in cypher: begin
-        print(i)
+        char = to_text(chartype[i], a, b, len(chartype))
+        char_arr.append(char)
+        text.append(list(chartype.keys())[list(chartype.values()).index(char)])
     end    
+    print(text)
+    return "".join(text)
 end
 
 
 teste = encrypt("hoje", a = 7, b = 3, chartype = correspondency)
 print(teste)
 
-teste = decrypt(teste, a = 7, b = 3, chartype = correspondency)
+#inversa da classe mod n 
+teste2 = decrypt(teste, a = 4, b = 3, chartype = correspondency)
 
+print(teste2)
